@@ -2,12 +2,10 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-resource "aws_vpc" "devopsshack_vpc" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
-    Name = "devopsshack-vpc"
-  }
+resource "aws_route_table_association" "devopsshack_association22" {
+  count          = 2
+  subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
+  route_table_id = aws_route_table.devopsshack_route_table.id
 }
 
 resource "aws_subnet" "devopsshack_subnet" {
